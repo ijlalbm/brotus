@@ -146,17 +146,11 @@ class Purchase_model extends CI_Model {
 
 		}
 
-		
-
 		$supinfo =$this->db->select('*')->from('supplier')->where('supid',$this->input->post('suplierid'))->get()->row();
 
 		$sup_head = $supinfo->suplier_code.'-'.$supinfo->supName;
 
 		$sup_coa = $this->db->select('*')->from('acc_coa')->where('HeadName',$sup_head)->get()->row();
-
-		
-
-		
 
 		// Acc transaction
 
@@ -223,12 +217,6 @@ class Purchase_model extends CI_Model {
 			); 
 
 		   $this->db->insert('acc_transaction',$poCredit);
-
-		   
-
-		
-
-		   
 
 		     // Expense for company
 
@@ -481,7 +469,106 @@ class Purchase_model extends CI_Model {
 	
 
 	}
+	
+	public function create_adjusment()
 
+	{
+
+		$saveid=$this->session->userdata('id');
+
+		$p_id = $this->input->post('product_id');
+		
+		$avail_q = $this->input->post('available_quantity');
+
+		$selisih_stock = $this->input->post('selisih');
+
+		$adj_stock = $this->input->post('adjusment_stock');
+
+		$satuanPost = $this->input->post('satuan');
+
+		$hargaPost = $this->input->post('harga');
+
+		$grand_total_price=$this->input->post('grand_total_price',true);
+
+		$adjusment_date = str_replace('/','-',$this->input->post('adjusment_date'));
+
+		$newdate= date('Y-m-d' , strtotime($adjusment_date));
+
+		// $quantity = $this->input->post('product_quantity',true);
+
+		$t_price = $this->input->post('total_price',true);
+		
+		$detailsQuery = $this->input->post('adjusment_details',true);
+
+		for ($i=0, $n=count($p_id); $i <= $n; $i++) {
+
+			// $product_quantity = $quantity[$i];
+			
+			$avail_quantity = $avail_q[$i];
+			
+			$selisih = $selisih_stock[$i];
+
+			$adjusment_Stock = $adj_stock[$i];
+
+			$satuan = $satuanPost[$i];
+
+			$harga = $hargaPost[$i];
+
+			$product_id = $p_id[$i];
+
+			$total_price = $t_price[$i];
+
+			$details = $detailsQuery[$i];
+
+			$data1 = array(
+
+				'adjust_no'			=>	$this->input->post('adjustment_no',true),
+
+				'adjust_tgl'			=>	$newdate,
+
+				'nama_item'			=>	$product_id,
+				
+				'stok_terakhir'		=>	$avail_quantity,
+				
+				'selisih_stock'		=>	$selisih,
+				
+				'adjust_stock'		=>	$adjusment_Stock,
+				
+				'harga'				=>	$harga,
+
+				'satuan'	        =>	$satuan,
+				
+				'total'	 			=>	$total_price,
+
+				'grand_total' 		=> $grand_total_price,
+
+				'details' 			=> $details,
+			);
+
+
+
+			
+
+				/*add stock in ingredients*/
+
+				// $this->db->set('stock_qty', 'stock_qty+'.$adjusment_Stock, FALSE);
+
+				// $this->db->where('id', $product_id);
+
+				// $this->db->update('ingredients');
+
+				/*end add ingredients*/
+
+				$this->db->insert('adjusment_stock',$data1);
+
+
+		}
+
+		return true;
+
+	
+
+	}
 	
 
 	public function delete($id = null)
@@ -1288,19 +1375,36 @@ class Purchase_model extends CI_Model {
 
 		$available_quantity = $query->stock_qty;
 		
-		$satuan = $query->satuan;
+		$measurement = $query->uom_id;
+
+		// untuk takaran
+		$this->db->select('*');
+
+		$this->db->from('unit_of_measurement');
+
+		$this->db->where('id', $measurement);
+
+		$querySatuan = $this->db->get()->row();
+
+		$satuan = $querySatuan->uom_name;
+
+		// untuk harga
+
+		$this->db->select('*');
+
+		$this->db->from('purchase_details');
+
+		$this->db->where('indredientid', $product_id);
+
+		$purchaseQuery = $this->db->get()->row();
+
+		$totalHarga= $purchaseQuery->totalprice;
 
 		$data2 = array(
-
 			'total_purchase'  => $available_quantity,
 			'satuan' => $satuan,
-
+			'harga'  => $totalHarga,
 			);
-
-		
-
-
-
 		return $data2;
 
 		}

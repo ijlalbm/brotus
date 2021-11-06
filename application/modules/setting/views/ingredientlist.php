@@ -82,13 +82,13 @@
 
                             <select name="kategoribahan" class="form-control">
 
-                                <option value=""  selected="selected">Select Option</option>
+                                <option value="" selected="selected">Select Option</option>
 
-                                <option value="1">Bahan Baku</option>
+                                <option value="Bahan Baku">Bahan Baku</option>
                                 
-                                <option value="2">Setengah Jadi</option>
+                                <option value="Setengah Jadi">Setengah Jadi</option>
 
-                                <option value="3">Bahan Jadi</option>
+                                <option value="Bahan Jadi">Bahan Jadi</option>
 
                               </select>
 
@@ -266,7 +266,7 @@
 
                                     <td><?php echo $ingredient->ingredient_name; ?></td>
                                     
-                                    <td><?php echo "Kategori bahan"; ?></td>
+                                    <td><?php echo $ingredient->kategori_bahan; ?></td>
 
                                     <td><?php echo $ingredient->uom_name; ?></td>
 

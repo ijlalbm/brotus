@@ -1897,21 +1897,21 @@
 
                               title: lang.ord_succ,
 
-                              text: "Do you Want to Print Token No.???",
+                              //   text: "Do you Want to Print Token No.???",
 
                               type: "success",
 
-                              showCancelButton: true,
+                              showCancelButton: false,
 
                               confirmButtonColor: "#28a745",
 
-                              confirmButtonText: "Yes",
+                              confirmButtonText: "OK",
 
                               cancelButtonText: "No",
 
-                              closeOnConfirm: true,
+                              //   closeOnConfirm: true,
 
-                              closeOnCancel: true
+                              //   closeOnCancel: true
 
                           },
 

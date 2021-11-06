@@ -16,7 +16,7 @@
 
                     </fieldset>
 
-                    <?php echo form_open_multipart('purchase/purchase/purchase_entry',array('class' => 'form-vertical', 'id' => 'insert_purchase','name' => 'insert_purchase'))?>
+                    <?php echo form_open_multipart('purchase/purchase/adjusment_entry',array('class' => 'form-vertical', 'id' => 'insert_purchase','name' => 'insert_purchase'))?>
 
                     <input name="url" type="hidden" id="url" value="<?php echo base_url("purchase/purchase/purchaseitem") ?>" />
 
@@ -32,7 +32,7 @@
 
                                     <div class="col-sm-8">
 
-                                    	<input type="text" tabindex="3" class="form-control" name="adjustment_no" placeholder="<?php echo display('invoice_no') ?>" id="invoice_no" required="">
+                                    	<input type="text" tabindex="3" class="form-control" name="adjustment_no" placeholder="Adjusment No" id="invoice_no" required="" value="<?php $rand = rand(); echo 'adjusment-'.substr($rand, 0, 5); ?>" readonly>
 
                                     </div>
 
@@ -133,38 +133,38 @@
 
                                             <td class="wt">
 
-                                                <input type="text" id="available_quantity_1" class="form-control text-right stock_ctn_1" placeholder="0.00" readonly="">
+                                                <input type="text" name="available_quantity[]" id="available_quantity_1" class="form-control text-right stock_ctn_1" placeholder="0" readonly="">
 
                                             </td>
                                             
                                             <td class="wt">
 
-                                                <input type="text" id="satuan"  placeholder="kg" class="form-control text-right stock_ctn_1" readonly="">
+                                                <input type="text" name="satuan[]" id="satuan_1"  placeholder="kg" class="form-control text-right stock_ctn_1" readonly="">
 
                                             </td>
                                         
 
                                             <td class="text-right">
 
-                                                <input type="number" step="0.0001" name="" id="cartoon_1" class="form-control text-right store_cal_1" onkeyup="calculate_store(1);" onchange="calculate_store(1);" placeholder="0.00" value="" min="0" tabindex="6">
+                                                <input type="number" name="selisih[]" id="selisih_1" class="form-control text-right store_cal_1" onkeyup="calculate_adjusment_stock(1);" onchange="calculate_adjusment_stock(1);" placeholder="0" value="" tabindex="6">
 
                                             </td>
 
                                             <td class="test">
 
-                                                <input type="number" step="0.0001" name="product_rate[]" onkeyup="calculate_store(1);" onchange="calculate_store(1);" id="product_rate_1" class="form-control product_rate_1 text-right" placeholder="0.00" value="" min="0"  tabindex="7">
+                                                <input type="number" name="adjusment_stock[]" id="adjusment_stock_1" class="form-control product_rate_1 text-right" placeholder="0" value="" min="0"  tabindex="7" readonly>
 
                                             </td>
 
                                             <td class="test">
 
-                                                <input type="number" step="0.0001" name="product_rate[]" onkeyup="calculate_store(1);" onchange="calculate_store(1);" id="product_rate_1" class="form-control product_rate_1 text-right" placeholder="0.00" value="" min="0"  tabindex="7">
+                                                <input type="number" name="harga[]" id="harga_1" class="form-control product_rate_1 text-right" placeholder="0" value="" min="0"  tabindex="7" readonly>
 
                                             </td>
 
                                             <td class="text-right">
 
-                                                <input class="form-control total_price text-right" type="text" name="total_price[]" id="total_price_1" value="0.00" readonly="readonly">
+                                                <input class="form-control total_price text-right" type="text" name="total_price[]" id="total_price_1" value="0" placeholder="00" tabindex="7" readonly="readonly">
 
                                             </td>
 
@@ -192,7 +192,7 @@
 
                                         <td class="text-right">
 
-                                            <input type="text" id="grandTotal" class="text-right form-control" name="grand_total_price" value="0.00" readonly="readonly">
+                                            <input type="text" id="grandTotal" class="text-right form-control" name="grand_total_price" value="0" readonly="readonly">
 
                                         </td>
 

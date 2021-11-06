@@ -238,7 +238,7 @@
                                             
                                             <td class="wt">
 
-                                                <input type="text" id="satuan"  placeholder="kg" class="form-control text-right stock_ctn_1" readonly="">
+                                                <input type="text" id="satuan_1" name="satuan[]"  placeholder="kg" class="form-control text-right stock_ctn_1" readonly="">
 
                                             </td> 
 

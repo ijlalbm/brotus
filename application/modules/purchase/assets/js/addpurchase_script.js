@@ -148,6 +148,10 @@ function product_list(sl) {
 
     var available_quantity = 'available_quantity_' + sl;
 
+    var satuan = 'satuan_' + sl;
+
+    var harga = 'harga_' + sl;
+
     if (supplier_id == 0 || supplier_id == '') {
 
         alert('Please select Supplier !');
@@ -178,8 +182,9 @@ function product_list(sl) {
 
             $('#' + available_quantity).val(obj.total_purchase);
 
-            $('#satuan').val(obj.satuan);
+            $('#' + satuan).val(obj.satuan);
 
+            $('#' + harga).val(obj.harga);
 
         }
 
@@ -213,8 +218,6 @@ function addmore(divName) {
 
         tab1 = tabindex + 1;
 
-
-
         tab2 = tabindex + 2;
 
         tab3 = tabindex + 3;
@@ -228,12 +231,7 @@ function addmore(divName) {
         tab7 = tab6 + 1;
 
 
-
-
-
-
-
-        newdiv.innerHTML = '<td class="span3 supplier"><select name="product_id[]" id="product_id_' + count + '" class="postform resizeselect form-control" onchange="product_list(' + count + ')">' + credit + '</select></td><td class="wt"> <input type="text" id="available_quantity_' + count + '" class="form-control text-right stock_ctn_' + count + '" placeholder="0.00" readonly/> </td><td class="wt"> <input type="text" id="available_quantity_' + count + '" class="form-control text-right stock_ctn_' + count + '" placeholder="0.00" readonly/> </td><td class="text-right"><input type="text" tabindex="' + tab2 + '" required  id="satuan' + count + '" class="form-control text-right store_cal_' + count + '" placeholder="kg" readonly/>  </td><td class="test"><input type="number" step="0.0001" name="product_rate[]" onkeyup="calculate_store(' + count + ');" onchange="calculate_store(' + count + ');" id="product_rate_' + count + '" class="form-control product_rate_' + count + ' text-right" placeholder="0.00" value="" tabindex="' + tab3 + '"/></td><td class="text-right"><input class="form-control total_price text-right total_price_' + count + '" type="text" name="total_price[]" id="total_price_' + count + '" value="0.00" readonly="readonly" /> </td><td> <input type="hidden" id="total_discount_1" class="" /><input type="hidden" id="all_discount_1" class="total_discount" /><button  class="btn btn-danger red text-right" type="button" value="Delete" onclick="purchasetdeleteRow(this)" tabindex="8">Delete</button></td>';
+        newdiv.innerHTML = '<td class="span3 supplier"><select name="product_id[]" id="product_id_' + count + '" class="postform resizeselect form-control" onchange="product_list(' + count + ')">' + credit + '</select></td><td class="wt"> <input type="text" id="available_quantity_' + count + '" class="form-control text-right stock_ctn_' + count + '" placeholder="0.00" readonly/> </td><td class="wt"> <input type="text" id="available_quantity_' + count + '" class="form-control text-right stock_ctn_' + count + '" placeholder="0.00" readonly/> </td><td class="text-right"><input type="text" tabindex="' + tab2 + '" required  id="satuan_' + count + '" class="form-control text-right store_cal_' + count + '" placeholder="kg" readonly/>  </td><td class="test"><input type="number" step="0.0001" name="product_rate[]" onkeyup="calculate_store(' + count + ');" onchange="calculate_store(' + count + ');" id="product_rate_' + count + '" class="form-control product_rate_' + count + ' text-right" placeholder="0.00" value="" tabindex="' + tab3 + '"/></td><td class="text-right"><input class="form-control total_price text-right total_price_' + count + '" type="text" name="total_price[]" id="total_price_' + count + '" value="0.00" readonly="readonly" /> </td><td> <input type="hidden" id="total_discount_1" class="" /><input type="hidden" id="all_discount_1" class="total_discount" /><button  class="btn btn-danger red text-right" type="button" value="Delete" onclick="purchasetdeleteRow(this)" tabindex="8">Delete</button></td>';
 
         document.getElementById(divName).appendChild(newdiv);
 
@@ -293,7 +291,7 @@ function addmoreAdjusment(divName) {
 
         tab7 = tab6 + 1;
 
-        newdiv.innerHTML = '<td class="span3 supplier"><select name="product_id[]" id="product_id_' + count + '" class="postform resizeselect form-control" onchange="product_list(' + count + ')">' + credit + '</select></td><td class="wt"> <input type="text" id="available_quantity_' + count + '" class="form-control text-right stock_ctn_' + count + '" placeholder="0.00" readonly/> </td><td class="wt"> <input type="text" id="satuan' + count + '" class="form-control text-right stock_ctn_' + count + '" placeholder="kg" readonly/> </td><td class="text-right"><input type="number" step="0.0001" name="product_quantity[]" tabindex="' + tab2 + '" required  id="cartoon_' + count + '" class="form-control text-right store_cal_' + count + '" onkeyup="calculate_store(' + count + ');" onchange="calculate_store(' + count + ');" placeholder="0.00" value="" min="0"/>  </td><td class="text-right"><input type="number" step="0.0001" name="product_quantity[]" tabindex="' + tab2 + '" required  id="cartoon_' + count + '" class="form-control text-right store_cal_' + count + '" onkeyup="calculate_store(' + count + ');" onchange="calculate_store(' + count + ');" placeholder="0.00" value="" min="0"/>  </td><td class="test"><input type="number" step="0.0001" name="product_rate[]" onkeyup="calculate_store(' + count + ');" onchange="calculate_store(' + count + ');" id="product_rate_' + count + '" class="form-control product_rate_' + count + ' text-right" placeholder="0.00" value="" tabindex="' + tab3 + '"/></td><td class="text-right"><input class="form-control total_price text-right total_price_' + count + '" type="text" name="total_price[]" id="total_price_' + count + '" value="0.00" readonly="readonly" /> </td><td> <input type="hidden" id="total_discount_1" class="" /><input type="hidden" id="all_discount_1" class="total_discount" /><button  class="btn btn-danger red text-right" type="button" value="Delete" onclick="purchasetdeleteRow(this)" tabindex="8">Delete</button></td>';
+        newdiv.innerHTML = '<td class="span3 supplier"><select name="product_id[]" id="product_id_' + count + '" class="postform resizeselect form-control" onchange="product_list(' + count + ')">' + credit + '</select></td><td class="wt"> <input type="text" name="available_quantity[]" id="available_quantity_' + count + '" class="form-control text-right stock_ctn_' + count + '" placeholder="0" readonly/> </td><td class="wt"> <input type="text" id="satuan_' + count + '" class="form-control text-right stock_ctn_' + count + '" placeholder="kg" readonly/> </td><td class="text-right"><input type="number" name="selisih[]" id="selisih_' + count + '" tabindex="' + tab2 + '" class="form-control text-right store_cal_' + count + '" onkeyup="calculate_adjusment_stock(' + count + ');" onchange="calculate_adjusment_stock(' + count + ');" placeholder="0" value=""/>  </td><td class="text-right"><input type="number" name="adjusment_stock[]" tabindex="' + tab2 + '" required  id="adjusment_stock_' + count + '" class="form-control text-right store_cal_' + count + '" placeholder="0" value="" min="0" readonly/>  </td><td class="test"><input type="number" name="harga[]" id="harga_' + count + '" class="form-control product_rate_' + count + ' text-right" placeholder="0" value="" tabindex="' + tab3 + '" readonly/></td><td class="text-right"><input class="form-control total_price text-right total_price_' + count + '" type="text" name="total_price[]" id="total_price_' + count + '" value="0" readonly="readonly" /> </td><td> <input type="hidden" id="total_discount_1" class="" /><input type="hidden" id="all_discount_1" class="total_discount" /><button  class="btn btn-danger red text-right" type="button" value="Delete" onclick="purchasetdeleteRow(this)" tabindex="8">Delete</button></td>';
 
         document.getElementById(divName).appendChild(newdiv);
 
@@ -355,6 +353,37 @@ function calculate_store(sl) {
 
     $("#grandTotal").val(gr_tot.toFixed(2, 2));
 
+}
+
+function calculate_adjusment_stock(sl) {
+    var gr_tot = 0;
+
+    var item_ctn_qty = $("#available_quantity_" + sl).val();
+
+    var selisih = $("#selisih_" + sl).val();
+
+    var harga = $("#harga_" + sl).val();
+
+    var adjusment_stock = parseInt(item_ctn_qty) + parseInt(selisih);
+
+    var total_harga = parseInt(harga) * parseInt(selisih);
+
+    $("#adjusment_stock_" + sl).val(adjusment_stock);
+
+    $("#total_price_" + sl).val(total_harga);
+
+
+    //Total Price
+
+    $(".total_price").each(function() {
+
+        isNaN(this.value) || 0 == this.value.length || (gr_tot += parseFloat(this.value))
+
+    });
+
+
+
+    $("#grandTotal").val(gr_tot.toFixed(2, 2));
 }
 
 function purchasetdeleteRow(e) {
