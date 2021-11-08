@@ -168,7 +168,7 @@ function product_list(sl) {
 
         url: baseurl + "purchase/purchase/purchasequantity",
 
-        data: { product_id: product_id, csrf_test_name: csrf },
+        data: { product_id: product_id, csrf_test_name: csrf, jenis: 2 },
 
         cache: false,
 
@@ -291,7 +291,7 @@ function addmoreAdjusment(divName) {
 
         tab7 = tab6 + 1;
 
-        newdiv.innerHTML = '<td class="span3 supplier"><select name="product_id[]" id="product_id_' + count + '" class="postform resizeselect form-control" onchange="product_list(' + count + ')">' + credit + '</select></td><td class="wt"> <input type="text" name="available_quantity[]" id="available_quantity_' + count + '" class="form-control text-right stock_ctn_' + count + '" placeholder="0" readonly/> </td><td class="wt"> <input type="text" id="satuan_' + count + '" class="form-control text-right stock_ctn_' + count + '" placeholder="kg" readonly/> </td><td class="text-right"><input type="number" name="selisih[]" id="selisih_' + count + '" tabindex="' + tab2 + '" class="form-control text-right store_cal_' + count + '" onkeyup="calculate_adjusment_stock(' + count + ');" onchange="calculate_adjusment_stock(' + count + ');" placeholder="0" value=""/>  </td><td class="text-right"><input type="number" name="adjusment_stock[]" tabindex="' + tab2 + '" required  id="adjusment_stock_' + count + '" class="form-control text-right store_cal_' + count + '" placeholder="0" value="" min="0" readonly/>  </td><td class="test"><input type="number" name="harga[]" id="harga_' + count + '" class="form-control product_rate_' + count + ' text-right" placeholder="0" value="" tabindex="' + tab3 + '" readonly/></td><td class="text-right"><input class="form-control total_price text-right total_price_' + count + '" type="text" name="total_price[]" id="total_price_' + count + '" value="0" readonly="readonly" /> </td><td> <input type="hidden" id="total_discount_1" class="" /><input type="hidden" id="all_discount_1" class="total_discount" /><button  class="btn btn-danger red text-right" type="button" value="Delete" onclick="purchasetdeleteRow(this)" tabindex="8">Delete</button></td>';
+        newdiv.innerHTML = '<td class="span3 supplier"><select name="product_id[]" id="product_id_' + count + '" class="postform resizeselect form-control" onchange="product_list(' + count + ')">' + credit + '</select></td><td class="wt"> <input type="text" name="available_quantity[]" id="available_quantity_' + count + '" class="form-control text-right stock_ctn_' + count + '" placeholder="0" readonly/> </td><td class="wt"> <input type="text" name="satuan[]" id="satuan_' + count + '" class="form-control text-right stock_ctn_' + count + '" placeholder="kg" readonly/> </td><td class="text-right"><input type="number" name="selisih[]" id="selisih_' + count + '" tabindex="' + tab2 + '" class="form-control text-right store_cal_' + count + '" onkeyup="calculate_adjusment_stock(' + count + ');" onchange="calculate_adjusment_stock(' + count + ');" placeholder="0" value=""/>  </td><td class="text-right"><input type="number" name="adjusment_stock[]" tabindex="' + tab2 + '" required  id="adjusment_stock_' + count + '" class="form-control text-right store_cal_' + count + '" placeholder="0" value="" min="0" readonly/>  </td><td class="test"><input type="number" name="harga[]" id="harga_' + count + '" class="form-control product_rate_' + count + ' text-right" placeholder="0" value="" tabindex="' + tab3 + '" readonly/></td><td class="text-right"><input class="form-control total_price text-right total_price_' + count + '" type="text" name="total_price[]" id="total_price_' + count + '" value="0" readonly="readonly" /> </td><td> <input type="hidden" id="total_discount_1" class="" /><input type="hidden" id="all_discount_1" class="total_discount" /><button  class="btn btn-danger red text-right" type="button" value="Delete" onclick="purchasetdeleteRow(this)" tabindex="8">Delete</button></td>';
 
         document.getElementById(divName).appendChild(newdiv);
 
@@ -356,6 +356,7 @@ function calculate_store(sl) {
 }
 
 function calculate_adjusment_stock(sl) {
+
     var gr_tot = 0;
 
     var item_ctn_qty = $("#available_quantity_" + sl).val();

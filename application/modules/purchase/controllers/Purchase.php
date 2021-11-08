@@ -345,8 +345,19 @@ class Purchase extends MX_Controller {
 	public function purchasequantity(){
 
 		$product_id = $this->input->post('product_id');
+		
+		$jenis = $this->input->post('jenis');
 
-		$product_info =  $this->purchase_model->get_total_product($product_id);
+		if($jenis==2){
+
+			$product_info =  $this->purchase_model->get_total_adjusment($product_id);
+			
+		}else{
+			
+			$product_info =  $this->purchase_model->get_total_product($product_id);
+
+		}
+
 
 		echo json_encode($product_info);
 

@@ -476,6 +476,8 @@ class Purchase_model extends CI_Model {
 
 		$saveid=$this->session->userdata('id');
 
+		$adjusment_no = $this->input->post('adjustment_no');
+
 		$p_id = $this->input->post('product_id');
 		
 		$avail_q = $this->input->post('available_quantity');
@@ -488,21 +490,19 @@ class Purchase_model extends CI_Model {
 
 		$hargaPost = $this->input->post('harga');
 
-		$grand_total_price=$this->input->post('grand_total_price',true);
+		$grand_total_price=$this->input->post('grand_total_price');
 
 		$adjusment_date = str_replace('/','-',$this->input->post('adjusment_date'));
 
 		$newdate= date('Y-m-d' , strtotime($adjusment_date));
 
-		// $quantity = $this->input->post('product_quantity',true);
-
-		$t_price = $this->input->post('total_price',true);
+		$t_price = $this->input->post('total_price');
 		
-		$detailsQuery = $this->input->post('adjusment_details',true);
+		$detailsQuery = $this->input->post('adjusment_details');
 
-		for ($i=0, $n=count($p_id); $i <= $n; $i++) {
+		$maxCount = count($p_id);
 
-			// $product_quantity = $quantity[$i];
+		for ($i=0, $n=$maxCount; $i < $n; $i++) {
 			
 			$avail_quantity = $avail_q[$i];
 			
@@ -518,14 +518,12 @@ class Purchase_model extends CI_Model {
 
 			$total_price = $t_price[$i];
 
-			$details = $detailsQuery[$i];
-
 			$data1 = array(
 
-				'adjust_no'			=>	$this->input->post('adjustment_no',true),
-
-				'adjust_tgl'			=>	$newdate,
-
+				'adjust_no'			=>	$adjusment_no,
+	
+				'adjust_tgl'		=>	$newdate,
+	
 				'nama_item'			=>	$product_id,
 				
 				'stok_terakhir'		=>	$avail_quantity,
@@ -535,14 +533,14 @@ class Purchase_model extends CI_Model {
 				'adjust_stock'		=>	$adjusment_Stock,
 				
 				'harga'				=>	$harga,
-
+	
 				'satuan'	        =>	$satuan,
 				
 				'total'	 			=>	$total_price,
-
-				'grand_total' 		=> $grand_total_price,
-
-				'details' 			=> $details,
+	
+				'grand_total' 		=>  $grand_total_price,
+	
+				'details' 			=> $detailsQuery,
 			);
 
 
@@ -551,11 +549,11 @@ class Purchase_model extends CI_Model {
 
 				/*add stock in ingredients*/
 
-				// $this->db->set('stock_qty', 'stock_qty+'.$adjusment_Stock, FALSE);
+				$this->db->set('stock_qty', $adjusment_Stock);
 
-				// $this->db->where('id', $product_id);
+				$this->db->where('id', $product_id);
 
-				// $this->db->update('ingredients');
+				$this->db->update('ingredients');
 
 				/*end add ingredients*/
 
@@ -1408,6 +1406,63 @@ class Purchase_model extends CI_Model {
 		return $data2;
 
 		}
+			
+		public function get_total_adjusment($product_id){
+	
+			$this->db->select('*');
+	
+			$this->db->from('ingredients');
+	
+			$this->db->where('id', $product_id);
+	
+			$query = $this->db->get()->row();
+	
+			$available_quantity = $query->stock_qty;
+			
+			$measurement = $query->uom_id;
+	
+			// untuk takaran
+			$this->db->select('*');
+
+			$this->db->from('unit_of_measurement');
+
+			$this->db->where('id', $measurement);
+
+			$querySatuan = $this->db->get()->row();
+
+			$satuan = $querySatuan->uom_name;
+
+			$this->db->from('purchase_details');
+			
+			$this->db->where('indredientid', $product_id);
+
+			$count =  $this->db->count_all_results();
+
+			// total price
+
+			$this->db->select_sum('price');
+
+			$this->db->where('indredientid', $product_id);
+
+			$totalColumn = $this->db->get('purchase_details')->row()->price;
+
+			$newTotal = str_replace(".", "", $totalColumn);
+
+			$harga = (int)$newTotal / (int)$count;
+	
+			$data2 = array(
+
+				'total_purchase'  => $available_quantity,
+
+				'satuan' => $satuan,
+
+				'harga'  => $harga,
+
+				);
+
+			return $data2;
+	
+			}
 
  public function iteminfo($id){
 
